@@ -1,0 +1,13 @@
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame({'Car':['BMW','Mercedes','Kia','BMW','Toyota','BMW','BMW'],'Price':[90000,120000,30000,50000,50000,20000,1]})
+# sns.boxenplot(df['Car'],df['Price'])
+y = df['Price']
+x =df['Car']
+
+plt.scatter(x,y)
+plt.title('price based on type')
+plt.xlabel('Cars')
+plt.ylabel('Price per cars')
