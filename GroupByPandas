@@ -1,0 +1,11 @@
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+df = pd.DataFrame({'Car':['BMW','Mercedes','Kia','BMW','Toyota','BMW','BMW','Mercedes'],'Price':[90000,120000,30000,50000,50000,20000,88000,110000]})
+
+print(df.groupby('Car',as_index=False).mean())
+df_new =df.groupby('Car',as_index=False).mean()
+plt.bar(df['Car'],df['Price'])
