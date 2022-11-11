@@ -1,0 +1,11 @@
+#-- تجميع البيانات ضمن مجموعات مثل أعمار الذمم
+
+import pandas as pd
+import numpy as np
+
+
+df = pd.DataFrame({'Name':['Ahmad','Yaser','Hus','Ali','Alaa'],'Amount':[1500,5000,2500,3000,2750]})
+bins = np.linspace(min(df['Amount']),max(df['Amount']),4)
+group_name = ['High','Mid','Low']
+df['New'] = pd.cut(df['Amount'], bins, labels=group_name,include_lowest=True)
+print(df)
