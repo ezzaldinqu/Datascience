@@ -1,0 +1,15 @@
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+df = pd.DataFrame({'Car':['BMW','Mercedes','Kia','BMW','Toyota','BMW','BMW','Mercedes'],'Price':[90000,120000,30000,50000,50000,20000,88000,110000],
+                   'Type':['High','Low','High','Low','High','Low','High','Low']})
+
+df_pivot = df.pivot(index='Car', columns=['Price','Type'],values='Price')
+print(df.)
+print(df_pivot)
+plt.pcolor(df_pivot, cmap='RdBu')
+plt.colorbar()
+plt.show()
