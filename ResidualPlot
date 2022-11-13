@@ -1,0 +1,7 @@
+# How to calculate the residual plot, this is to compare between the expected and residual
+
+import seaborn as sns
+import pandas as pd
+
+df = pd.DataFrame({'Speed':[220,250,400,150],'Price':[20000,44000,150000,18000]})
+sns.residplot(df['Speed'],df['Price'])
