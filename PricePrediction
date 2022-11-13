@@ -1,0 +1,9 @@
+# using the Model to prediction
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+df = pd.DataFrame({'Model':[2000,2005,2010,2012,2018],'Price':[3000,5000,10000,12000,16000]})
+xl=LinearRegression()
+xl.fit(np.array(df['Model']).reshape(-1,1),np.array(df['Price']).reshape(-1,1))
+xl.predict(np.array(2020).reshape(-1,1))
