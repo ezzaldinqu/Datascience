@@ -1,0 +1,64 @@
+## import the data from the csv file and drop the null values and replace it with zero, then save it to ms sql server
+
+import datetime
+import pandas as pd
+import pyodbc as sql
+
+df = pd.read_csv('ChicagoCrimeData.csv')
+
+df.fillna(0,inplace=True)
+
+for row in range(len(df)):
+    con = sql.connect('DRIVER={SQL Server};SERVER=.\sql2019;DATABASE=DataScience;UID=sa;PWD=123')
+    cursor = con.cursor()
+    cursor.execute('INSERT INTO [dbo].[CRIME] ([ID],[CASE_NUMBER],[Date],[BLOCK],[IUCR],[PRIMARY_TYPE],[DESCRIPTION],[LOCATION_DESCRIPTION]'
+                   ',[ARREST],[DOMESTIC],[BEAT],[DISTRICT],[WARD],[COMMUNITY_AREA_NUMBER],[FBICODE],[X_COORDINATE],[Y_COORDINATE],[YEAR],[LATITUDE]'
+                   ',[LONGITUDE],[LOCATION]) '
+                   'VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                   (int(df.iloc[row][0]), df.iloc[row][1], df.iloc[row][2], df.iloc[row][3], df.iloc[row][4]
+                , df.iloc[row][5], df.iloc[row][6], bool(df.iloc[row][7]), bool(df.iloc[row][8]), int(df.iloc[row][9]), int(df.iloc[row][10])
+                    , int(df.iloc[row][11]), int(df.iloc[row][12]), int(df.iloc[row][13]), df.iloc[row][14], int(df.iloc[row][15])
+                    , int(df.iloc[row][16]), int(df.iloc[row][17]), float(df.iloc[row][18]),float(df.iloc[row][19])
+                    , df.iloc[row][20]))
+    cursor.commit()
+con.close()
+
+--The script to create the table in ms sql
+
+USE [DataScience]
+GO
+
+/****** Object:  Table [dbo].[CRIME]    Script Date: 21/11/2022 11:32:48 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CRIME](
+	[ID] [bigint] NULL,
+	[CASE_NUMBER] [nchar](50) NULL,
+	[Date] [date] NULL,
+	[BLOCK] [nchar](70) NULL,
+	[IUCR] [nchar](10) NULL,
+	[PRIMARY_TYPE] [nchar](100) NULL,
+	[DESCRIPTION] [nchar](500) NULL,
+	[LOCATION_DESCRIPTION] [nchar](100) NULL,
+	[ARREST] [tinyint] NULL,
+	[DOMESTIC] [tinyint] NULL,
+	[BEAT] [bigint] NULL,
+	[DISTRICT] [int] NULL,
+	[WARD] [int] NULL,
+	[COMMUNITY_AREA_NUMBER] [int] NULL,
+	[FBICODE] [nchar](10) NULL,
+	[X_COORDINATE] [bigint] NULL,
+	[Y_COORDINATE] [bigint] NULL,
+	[YEAR] [int] NULL,
+	[LATITUDE] [float] NULL,
+	[LONGITUDE] [float] NULL,
+	[LOCATION] [nchar](500) NULL
+) ON [PRIMARY]
+GO
+
+
+
