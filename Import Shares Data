@@ -1,0 +1,14 @@
+import yfinance as yf
+import pandas as pd
+# Microsoft 'MSFT', Apple 'AAPL', Tesla 'TSLA'
+# choose the company
+print(yf.Ticker.get_major_holders)
+company_abb = input('Please enter the company code')
+company = yf.Ticker(company_abb)
+company_info = company.info['country']
+company_share = company.history(period='max')
+company_share.reset_index(inplace=True)
+df = pd.DataFrame(company_share)
+print(company.info)
+df.head
+# df.to_excel(company_abb + '.xlsx')
