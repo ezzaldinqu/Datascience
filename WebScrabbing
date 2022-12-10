@@ -20,3 +20,9 @@ for row in soup.find("tbody").find_all('tr'):
     # Finally we append the data of each row to the table
     netflix_data = netflix_data.append({"Date":date, "Open":Open, "High":high, "Low":low, "Close":close, "Adj Close":adj_close, "Volume":volume}, ignore_index=True)
 print(netflix_data['Open'][697])
+
+
+to install required library
+!pip install yfinance==0.1.67
+!mamba install bs4==4.10.0 -y
+!pip install nbformat==4.2.0
