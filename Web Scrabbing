@@ -1,0 +1,23 @@
+### Example of web scrabbing from Yalla Kura web site,
+### The following is the video for the web on youtube from:
+### https://www.youtube.com/watch?v=taL3r_JpwBg
+
+import requests
+from bs4 import *
+import csv
+date = '11/23/2022'#input('Please choose the date')
+page = requests.get(f'https://www.yallakora.com/Match-Center/?date={date}')
+
+def main(page):
+    src = page.content
+    soup = BeautifulSoup(src,'lxml')
+    matches_details = []
+    championships = soup.find_all("div",{'class' : 'matchCard'})
+
+    def get_match_info(championships):
+        championship_title = championships.contents[1].find('h2').text.strip()
+        all_match = championships.contents[3].find_all('li')
+        number_match = len(all_match)
+        print(number_match,championship_title)
+    get_match_info(championships[1])
+main(page)
